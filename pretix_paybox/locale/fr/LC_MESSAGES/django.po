@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-07 19:01+0100\n"
+"POT-Creation-Date: 2023-07-25 20:44+0200\n"
 "PO-Revision-Date: 2023-07-25 17:08+0000\n"
 "Last-Translator: admin <ronan@highcanfly.club>\n"
 "Language-Team: French <http://oci.sctg.eu.org/projects/pretix-paybox/plugin/"
@@ -13,11 +13,81 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 4.18.2\n"
 
-msgid "Paybox for Pretix"
-msgstr "Paybox pour Pretix"
+#: apps.py:16
+msgid "Paybox plugin"
+msgstr ""
 
+#: apps.py:19
+msgid "Paybox payment plugin for Pretix 4"
+msgstr "Plugin de paiement Paybox pour Pretix 4"
+
+#: payment.py:21
 msgid "Paybox Payment"
 msgstr "Paiement Paybox"
 
-msgid "Paybox payment plugin for Pretix 4"
-msgstr "Plugin de paiement Paybox pour Pretix 4"
+#: payment.py:27
+msgid ""
+"In test mode, you can just manually mark this order as paid in the backend "
+"after it has been created."
+msgstr ""
+
+#: payment.py:36
+msgid "Endpoint"
+msgstr ""
+
+#: payment.py:39
+msgid "Live"
+msgstr ""
+
+#: payment.py:40
+msgid "Sandbox"
+msgstr ""
+
+#: payment.py:46
+msgid "Paybox production HMAC"
+msgstr ""
+
+#: payment.py:49
+msgid "The production HMAC key"
+msgstr ""
+
+#: payment.py:55
+msgid "Paybox sandbox HMAC"
+msgstr ""
+
+#: payment.py:58
+msgid "The sandbox HMAC key"
+msgstr ""
+
+#: payment.py:64
+#, fuzzy
+#| msgid "Paybox Payment"
+msgid "Paybox site"
+msgstr "Paiement Paybox"
+
+#: payment.py:68
+msgid "This is Paybox site ID"
+msgstr ""
+
+#: payment.py:75
+#, fuzzy
+#| msgid "Paybox Payment"
+msgid "Paybox rank"
+msgstr "Paiement Paybox"
+
+#: payment.py:79
+msgid "This is the two characters rank ID"
+msgstr ""
+
+#: payment.py:86
+#, fuzzy
+#| msgid "Paybox Payment"
+msgid "Paybox identifier"
+msgstr "Paiement Paybox"
+
+#: payment.py:90
+msgid "This main Paybox ID"
+msgstr ""
+
+#~ msgid "Paybox for Pretix"
+#~ msgstr "Paybox pour Pretix"
