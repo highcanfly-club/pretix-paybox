@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "pretix.fullname" . }}
+  labels:
+    {{- include "pretix.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "pretix.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "pretix.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          env:
+            - name: PRETIX_HOST
+              value: {{ .Values.ingress.host }}
+            - name: MASTER_ADMIN_PASSWORD
+              valueFrom:
+                  secretKeyRef:
+                    key: password
+                    name: pretix-credentials
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          {{- if .Values.DEVMODE }}
+          command: ["/bin/sh","-c"]
+          args: ["sleep infinity"]
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          volumeMounts:
+            - name: lv-storage
+              mountPath: /data
+          {{- if .Values.HEALTHCHECK }}
+          livenessProbe:
+            initialDelaySeconds: {{ .Values.image.startingTime}}
+            httpGet:
+              port: 80
+              path: /healthcheck/
+              httpHeaders:
+              - name: Host
+                value: {{ .Values.ingress.host }}
+          readinessProbe:
+            initialDelaySeconds: {{ .Values.image.startingTime}}
+            httpGet:
+              port: 80
+              path: /healthcheck/
+              httpHeaders:
+              - name: Host
+                value: {{ .Values.ingress.host }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: lv-storage
+          persistentVolumeClaim:
+            claimName: pvc-pretix

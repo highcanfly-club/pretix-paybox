@@ -1,0 +1,5 @@
+recursive-include pretix_paybox/static *
+recursive-include pretix_paybox/templates *
+recursive-include pretix_paybox/locale *
+include LICENSE
+exclude .gitlab-ci.yml

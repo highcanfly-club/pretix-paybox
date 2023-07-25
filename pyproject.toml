@@ -1,0 +1,42 @@
+[project]
+name = "pretix-paybox"
+dynamic = ["version"]
+description = "Paybox payment plugin for Pretix 4"
+readme = "README.md"
+license = {text = "AGPLv3"}
+keywords = ["pretix"]
+authors = [
+    {name = "Ronan Le Meillat", email = "ronan@highcanfly.club"},
+]
+maintainers = [
+    {name = "Ronan Le Meillat", email = "ronan@highcanfly.club"},
+]
+
+dependencies = [
+]
+
+[project.entry-points."pretix.plugin"]
+pretix_paybox = "pretix_paybox:PretixPluginMeta"
+
+[project.entry-points."distutils.commands"]
+build = "pretix_plugin_build.build:CustomBuild"
+
+[build-system]
+requires = [
+    "setuptools",
+    "pretix-plugin-build",
+]
+
+[project.urls]
+homepage = "https://github.com/highcanfly-club/pretix-paybox"
+repository = "https://github.com/highcanfly-club/pretix-paybox"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = {attr = "pretix_paybox.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["pretix*"]
+namespaces = false

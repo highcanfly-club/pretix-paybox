@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgsql-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pgsql-server
+  template:
+    metadata:
+      labels:
+        app: pgsql-server
+        name: pgsql-server
+    spec:
+      containers:
+      - name: pgsql-server
+        image: postgres:12-bullseye
+        ports:
+          - name: pgsql-server
+            containerPort: 5432
+        volumeMounts:
+          - name: lv-storage
+            mountPath: /var/lib/posgresql
+        env:
+            - name: POSTGRES_USER
+              valueFrom:
+                  secretKeyRef:
+                    key: user
+                    name: postgres-credentials
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                  secretKeyRef:
+                    key: password
+                    name: postgres-credentials
+            - name: POSTGRES_DB
+              value: {{ .Values.postgresql.postgredb }}
+      volumes:
+        - name: lv-storage
+          persistentVolumeClaim:
+            claimName: pvc-postgres

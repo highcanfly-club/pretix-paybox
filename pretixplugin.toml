@@ -1,0 +1,5 @@
+[plugin]
+package = "pretix-paybox"
+modules = [ "pretix_paybox" ]
+marketplace_name = "paybox"
+
