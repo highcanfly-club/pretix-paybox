@@ -31,7 +31,9 @@ msgstr "La clé HMAC de production"
 msgid "The sandbox HMAC key"
 msgstr "La clé HMAC pour le bac à sable"
 
-msgid "This is Paybox site ID"
+#, fuzzy
+#| msgid "This is Paybox site ID"
+msgid "This is the Paybox site ID"
 msgstr "Il s’agit de l’ID de site Paybox"
 
 msgid "Paybox rank"
@@ -48,6 +50,11 @@ msgstr "Live"
 
 msgid "Sandbox"
 msgstr "Bac à sable"
+
+#, fuzzy
+#| msgid "This main Paybox ID"
+msgid "This is the main Paybox ID"
+msgstr "C'est l'ID Paybox principal"
 
 #~ msgid "Paybox plugin"
 #~ msgstr "Plugin Paybox"
@@ -71,6 +78,3 @@ msgstr "Bac à sable"
 #~| msgid "Paybox Payment"
 #~ msgid "Paybox identifier"
 #~ msgstr "Paiement Paybox"
-
-#~ msgid "This main Paybox ID"
-#~ msgstr "C'est l'ID Paybox principal"
