@@ -15,6 +15,7 @@ class PluginApp(PluginConfig):
     class PretixPluginMeta:
         name = gettext_lazy("Paybox plugin")
         author = "Ronan Le Meillat"
+        picture = "pretix_paybox/Up2Pay_eTransactions.svg"
         description = gettext_lazy("Paybox payment plugin for Pretix 4")
         visible = True
         version = __version__

@@ -20,3 +20,30 @@ msgstr ""
 
 msgid "Paybox payment plugin for Pretix 4"
 msgstr ""
+
+msgid "Paybox production HMAC"
+msgstr ""
+
+msgid "The production HMAC key"
+msgstr ""
+
+msgid "The sandbox HMAC key"
+msgstr ""
+
+msgid "This is Paybox site ID"
+msgstr ""
+
+msgid "Paybox rank"
+msgstr ""
+
+msgid "This is the two characters rank ID"
+msgstr ""
+
+msgid "Endpoint"
+msgstr ""
+
+msgid "Live"
+msgstr ""
+
+msgid "Sandbox"
+msgstr ""
