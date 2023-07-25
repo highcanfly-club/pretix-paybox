@@ -19,3 +19,4 @@ msgid "Paybox Payment"
 msgstr ""
 
 msgid "Paybox payment plugin for Pretix 4"
+msgstr ""
