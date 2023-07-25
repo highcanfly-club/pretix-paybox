@@ -30,7 +30,7 @@ msgstr ""
 msgid "The sandbox HMAC key"
 msgstr ""
 
-msgid "This is Paybox site ID"
+msgid "This is the Paybox site ID"
 msgstr ""
 
 msgid "Paybox rank"
@@ -46,4 +46,7 @@ msgid "Live"
 msgstr ""
 
 msgid "Sandbox"
+msgstr ""
+
+msgid "This is the main Paybox ID"
 msgstr ""
