@@ -65,7 +65,7 @@ class PayboxPayment(BasePaymentProvider):
                     max_length=8,
                     min_length=6,
                     help_text=_(
-                        "This is Paybox site ID"
+                        "This is the Paybox site ID"
                     ),
                 ),
             ),
@@ -87,7 +87,7 @@ class PayboxPayment(BasePaymentProvider):
                     max_length=9,
                     min_length=1,
                     help_text=_(
-                        "This main Paybox ID"
+                        "This is the main Paybox ID"
                     ),
                 ),
             ),
