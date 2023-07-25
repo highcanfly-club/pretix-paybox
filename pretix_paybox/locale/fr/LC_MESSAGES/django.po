@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-07 19:01+0100\n"
-"PO-Revision-Date: 2023-07-25 19:03+0000\n"
+"PO-Revision-Date: 2023-07-25 19:07+0000\n"
 "Last-Translator: admin <ronan@highcanfly.club>\n"
 "Language-Team: French <http://oci.sctg.eu.org/projects/pretix-paybox/plugin/"
 "fr/>\n"
@@ -31,8 +31,6 @@ msgstr "La clé HMAC de production"
 msgid "The sandbox HMAC key"
 msgstr "La clé HMAC pour le bac à sable"
 
-#, fuzzy
-#| msgid "This is Paybox site ID"
 msgid "This is the Paybox site ID"
 msgstr "Il s’agit de l’ID de site Paybox"
 
@@ -51,8 +49,6 @@ msgstr "Live"
 msgid "Sandbox"
 msgstr "Bac à sable"
 
-#, fuzzy
-#| msgid "This main Paybox ID"
 msgid "This is the main Paybox ID"
 msgstr "C'est l'ID Paybox principal"
 
