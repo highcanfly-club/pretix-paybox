@@ -57,7 +57,7 @@ msgstr ""
 msgid "Sandbox server"
 msgstr ""
 
-msgid "Apprication path"
+msgid "Application path"
 msgstr ""
 
 msgid "The path part of the complete URL (server+path)"

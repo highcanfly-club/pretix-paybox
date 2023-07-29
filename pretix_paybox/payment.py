@@ -60,7 +60,7 @@ class PayboxPayment(BasePaymentProvider):
              )),
             ('endoint_application_path',
              forms.CharField(
-                 label=_('Apprication path'),
+                 label=_('Application path'),
                  help_text=_("The path part of the complete URL (server+path)"),
                  initial='/cgi/FramepagepaiementRWD.cgi',
              )),
