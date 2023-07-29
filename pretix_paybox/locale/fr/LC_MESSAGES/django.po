@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-07 19:01+0100\n"
-"PO-Revision-Date: 2023-07-25 19:07+0000\n"
+"PO-Revision-Date: 2023-07-29 13:56+0000\n"
 "Last-Translator: admin <ronan@highcanfly.club>\n"
 "Language-Team: French <http://oci.sctg.eu.org/projects/pretix-paybox/plugin/"
 "fr/>\n"
@@ -53,39 +53,37 @@ msgid "This is the main Paybox ID"
 msgstr "C'est l'ID Paybox principal"
 
 msgid "Production server"
-msgstr ""
+msgstr "Serveur de production"
 
-#, fuzzy
-#| msgid "Sandbox"
 msgid "Sandbox server"
-msgstr "Bac à sable"
+msgstr "Serveur bac à sable"
 
 msgid "Apprication path"
 msgstr ""
 
 msgid "The path part of the complete URL (server+path)"
-msgstr ""
+msgstr "La partie chemin de l’URL complète (serveur+chemin)"
 
 msgid "Card Holder Last Name'"
 msgstr ""
 
 msgid "Card Holder First Name"
-msgstr ""
+msgstr "Prénom du titulaire de la carte"
 
 msgid "Card Holder Street"
-msgstr ""
+msgstr "Rue du titulaire de la carte"
 
 msgid "Card Holder Address Complement"
-msgstr ""
+msgstr "Complément d’adresse du titulaire de la carte"
 
 msgid "Account Holder Postal Code"
 msgstr ""
 
 msgid "Card Holder City"
-msgstr ""
+msgstr "Ville du titulaire de la carte"
 
 msgid "Card Holder Country"
-msgstr ""
+msgstr "Pays du titulaire de la carte"
 
 #~ msgid "Paybox plugin"
 #~ msgstr "Plugin Paybox"
