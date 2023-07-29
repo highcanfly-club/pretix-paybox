@@ -174,7 +174,7 @@ class PayboxPayment(BasePaymentProvider):
                  )),
                 ('postal_code',
                  forms.CharField(
-                     label=_('Account Holder Postal Code'),
+                     label=_('Card Holder Postal Code'),
                      required=True,
                      initial=self.ia.zipcode,
                  )),
