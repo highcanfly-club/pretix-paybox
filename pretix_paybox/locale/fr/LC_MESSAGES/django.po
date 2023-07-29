@@ -64,8 +64,10 @@ msgstr ""
 msgid "The path part of the complete URL (server+path)"
 msgstr "La partie chemin de l’URL complète (serveur+chemin)"
 
-msgid "Card Holder Last Name'"
-msgstr ""
+#, fuzzy
+#| msgid "Card Holder First Name"
+msgid "Card Holder Last Name"
+msgstr "Prénom du titulaire de la carte"
 
 msgid "Card Holder First Name"
 msgstr "Prénom du titulaire de la carte"
@@ -76,8 +78,10 @@ msgstr "Rue du titulaire de la carte"
 msgid "Card Holder Address Complement"
 msgstr "Complément d’adresse du titulaire de la carte"
 
-msgid "Account Holder Postal Code"
-msgstr ""
+#, fuzzy
+#| msgid "Card Holder First Name"
+msgid "Card Holder Postal Code"
+msgstr "Prénom du titulaire de la carte"
 
 msgid "Card Holder City"
 msgstr "Ville du titulaire de la carte"
