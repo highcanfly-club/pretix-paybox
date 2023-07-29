@@ -162,7 +162,7 @@ class Transaction:
     # containing the quantity of items in the
     # shopping cart (valid values are 0<v<100)
     def get_pbx_shoppingcart(self):
-        totalquantity = 1
+        totalquantity = self.totalquantity
         if self.totalquantity < 1:
             totalquantity = 1
 

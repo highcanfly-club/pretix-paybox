@@ -1,17 +1,21 @@
-import sys
+import uuid
 from collections import OrderedDict
+from datetime import datetime
 from decimal import Decimal
 from django import forms
-from django.http import HttpRequest
+from django.conf import settings
 from django.forms import Form
+from django.http import HttpRequest
 from django.template.loader import get_template
 from django.utils.crypto import get_random_string
 from django.utils.translation import get_language, gettext_lazy as _, to_locale
+from django_countries.fields import Country
 from pretix.base.forms.questions import guess_country
-from pretix.helpers.countries import CachedCountries
-from pretix.base.models import OrderPayment, InvoiceAddress, Order
+from pretix.base.models import InvoiceAddress, Order, OrderPayment
 from pretix.base.payment import BasePaymentProvider
+from pretix.helpers.countries import CachedCountries
 from pretix.presale.views.cart import cart_session
+
 from .Paybox import Transaction
 
 
@@ -134,7 +138,6 @@ class PayboxPayment(BasePaymentProvider):
                         request._checkout_flow_invoice_address = InvoiceAddress()
             return request._checkout_flow_invoice_address
 
-        cs = cart_session(request)
         self.ia = get_invoice_address()
         # print(cs, file=sys.stderr)
         # print(self.ia.name_parts, file=sys.stderr)
@@ -146,26 +149,26 @@ class PayboxPayment(BasePaymentProvider):
     @property
     def payment_form_fields(self):
         print("PayboxPayment.payment_form_fields", file=sys.stderr)
-        print(self.ia.name_parts, file=sys.stderr)
+        print(CachedCountries(), file=sys.stderr)
         return OrderedDict(
             [
                 ('lastname',
                  forms.CharField(
                      label=_('Card Holder Last Name'),
                      required=True,
-                     initial=self.ia.name_parts["given_name"],
+                     initial=self.ia.name_parts["given_name"] if "given_name" in self.ia.name_parts else None,
                  )),
                 ('firstname',
                  forms.CharField(
                      label=_('Card Holder First Name'),
                      required=True,
-                     initial=self.ia.name_parts["family_name"],
+                     initial=self.ia.name_parts["family_name"] if "family_name" in self.ia.name_parts else None,
                  )),
                 ('line1',
                  forms.CharField(
                      label=_('Card Holder Street'),
                      required=True,
-                     initial=self.ia.street,
+                     initial=self.ia.street or None,
                  )),
                 ('line2',
                  forms.CharField(
@@ -176,13 +179,13 @@ class PayboxPayment(BasePaymentProvider):
                  forms.CharField(
                      label=_('Card Holder Postal Code'),
                      required=True,
-                     initial=self.ia.zipcode,
+                     initial=self.ia.zipcode or None,
                  )),
                 ('city',
                  forms.CharField(
                      label=_('Card Holder City'),
                      required=True,
-                     initial=self.ia.city,
+                     initial=self.ia.city or None,
                  )),
                 ('country',
                  forms.ChoiceField(
@@ -195,7 +198,9 @@ class PayboxPayment(BasePaymentProvider):
 
     def checkout_prepare(self, request, cart):
         print("PayboxPayment.checkout_prepare", file=sys.stderr)
-        return True
+        request.session["itemcount"] = cart["itemcount"]
+        request.session["total"] = self._decimal_to_int(cart["total"])
+        return super().checkout_prepare(request, cart)
 
     def payment_prepare(
         self, request: HttpRequest, payment: OrderPayment
@@ -220,10 +225,50 @@ class PayboxPayment(BasePaymentProvider):
             subLocale = baseLocale.upper()
         locale = "{}-{}".format(baseLocale, subLocale)
         return locale
-
+    
+    def _decimal_to_int(self, amount):
+        places = settings.CURRENCY_PLACES.get(self.event.currency, 2)
+        return int(amount * 10 ** places)
+    
     def checkout_confirm_render(self, request):
         print("PayboxPayment.checkout_confirm_render", file=sys.stderr)
+        # for key, value in request.session.items():
+        #     print('{} => {}'.format(key, value), file=sys.stderr)
+        
+        holder_country = Country(code=request.session['payment_payboxpayment_country'])
+        server_production = False
+        cs = cart_session(request)
+        if self.settings.get('paybox_site') == 'live':
+            server_production = True
+        transaction = Transaction(PAYBOX_SITE=self.settings.get('paybox_site'),
+                                  PAYBOX_RANG=self.settings.get('paybox_rank'),
+                                  PAYBOX_IDENTIFIANT=self.settings.get('paybox_id'),
+                                  production=server_production,
+                                  PAYBOX_SECRETKEYPROD=self.settings.get('production_secret'),
+                                  PAYBOX_SECRETKEYTEST=self.settings.get('sandbox_secret'),
+                                  paybox_path=self.settings.get('endoint_application_path'),
+                                  firstname=request.session['payment_payboxpayment_firstname'],
+                                  lastname=request.session['payment_payboxpayment_lastname'],
+                                  address1=request.session['payment_payboxpayment_line1'],
+                                  address2=request.session['payment_payboxpayment_line2'],
+                                  zipcode=request.session['payment_payboxpayment_postal_code'],
+                                  city=request.session['payment_payboxpayment_city'],
+                                  countrycode=holder_country.numeric,
+                                  totalquantity=int(request.session["itemcount"]),
+                                  PBX_TOTAL=request.session["total"], 	# total of the transaction, in cents (10€ == 1000) (int)
+                                  PBX_PORTEUR=cs["email"],  # customer's email address
+                                  PBX_TIME=datetime.now().isoformat(),	 # datetime object
+                                  PBX_CMD=str(uuid.uuid4()),  # order_reference (str),
+                                  PBX_DEVISE=978,
+                                  PBX_REFUSE='http://127.0.0.1:8000/up2pay',
+                                  PBX_REPONDRE_A='http://127.0.0.1:8000/up2pay',
+                                  PBX_EFFECTUE='http://127.0.0.1:8000/up2pay',
+                                  PBX_ANNULE='http://127.0.0.1:8000/up2pay',
+                                  PBX_ATTENTE='http://127.0.0.1:8000/up2pay',)
+        transaction.post_to_paybox()
         ctx = {
+            "action": transaction.get_action(),
+            "html": transaction.construct_html_form()["fields"]
         }
         template = get_template("pretix_paybox/checkout_payment_form.html")
         return template.render(ctx)
