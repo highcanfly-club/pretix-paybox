@@ -3,3 +3,15 @@ recursive-include pretix_paybox/templates *
 recursive-include pretix_paybox/locale *
 include LICENSE
 exclude .gitlab-ci.yml
+exclude Dockerfile
+exclude Tiltfile
+exclude backup-db.sh
+exclude static-init.sh
+exclude _values.yaml
+exclude helm/pretix/.helmignore
+exclude helm/pretix/*.yaml
+exclude helm/pretix/templates/*.txt
+exclude helm/pretix/templates/_helpers.tpl
+exclude helm/pretix/templates/*.yaml
+exclude helm/pretix/values.yaml
+exclude kaniko-build.sh
