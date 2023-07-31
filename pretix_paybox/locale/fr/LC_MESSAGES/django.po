@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-07 19:01+0100\n"
-"PO-Revision-Date: 2023-07-29 14:03+0000\n"
+"PO-Revision-Date: 2023-07-31 17:58+0000\n"
 "Last-Translator: admin <ronan@highcanfly.club>\n"
 "Language-Team: French <http://oci.sctg.eu.org/projects/pretix-paybox/plugin/"
 "fr/>\n"
@@ -85,41 +85,35 @@ msgstr "Ville du titulaire de la carte"
 msgid "Card Holder Country"
 msgstr "Pays du titulaire de la carte"
 
-#, fuzzy
-#| msgid "Production server"
 msgid "The production server base URL"
-msgstr "Serveur de production"
+msgstr "URL de base du serveur de production"
 
-#, fuzzy
-#| msgid "Sandbox server"
 msgid "The sandbox server base URL"
-msgstr "Serveur bac à sable"
+msgstr "URL de base du serveur bac à sable"
 
-#, fuzzy
-#| msgid "Paybox Payment"
 msgid "Paybox identifier"
-msgstr "Paiement Paybox"
+msgstr "Identifiant Paybox"
 
 msgid "Server Error"
-msgstr ""
+msgstr "Erreur de serveur"
 
 msgid "Go to Paybox/Up2Pay secured website"
-msgstr ""
+msgstr "Aller sur le site sécurisé Paybox/Up2Pay"
 
 msgid "refused"
-msgstr ""
+msgstr "refusé"
 
 msgid "answer to"
-msgstr ""
+msgstr "réponse à"
 
 msgid "unkown error"
-msgstr ""
+msgstr "Erreur inconnue"
 
 msgid "canceled"
-msgstr ""
+msgstr "Annulé"
 
 msgid "pending"
-msgstr ""
+msgstr "en instance"
 
 #~ msgid "Paybox plugin"
 #~ msgstr "Plugin Paybox"
