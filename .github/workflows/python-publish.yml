@@ -35,7 +35,7 @@ jobs:
     - name: Install pretix
       run: pip3 install pretix
     - name: Install Dependencies
-      run: pip3 install pretix-plugin-build twine check-manifest pip setuptools pycryptodome wheel -Ue .
+      run: pip3 install pretix-plugin-build twine check-manifest pip setuptools wheel -Ue .
     - name: Run check-manifest
       run: check-manifest .
       working-directory: .

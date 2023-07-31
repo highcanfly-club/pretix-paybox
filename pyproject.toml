@@ -8,7 +8,7 @@ keywords = ["pretix"]
 authors = [{ name = "Ronan Le Meillat", email = "ronan@highcanfly.club" }]
 maintainers = [{ name = "Ronan Le Meillat", email = "ronan@highcanfly.club" }]
 
-dependencies = ["pycryptodome >= 3.18.0"]
+dependencies = ["pycryptodome >= 3.16.0"]
 
 [project.entry-points."pretix.plugin"]
 pretix_paybox = "pretix_paybox:PretixPluginMeta"
