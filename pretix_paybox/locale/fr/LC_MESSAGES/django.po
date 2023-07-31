@@ -85,6 +85,42 @@ msgstr "Ville du titulaire de la carte"
 msgid "Card Holder Country"
 msgstr "Pays du titulaire de la carte"
 
+#, fuzzy
+#| msgid "Production server"
+msgid "The production server base URL"
+msgstr "Serveur de production"
+
+#, fuzzy
+#| msgid "Sandbox server"
+msgid "The sandbox server base URL"
+msgstr "Serveur bac à sable"
+
+#, fuzzy
+#| msgid "Paybox Payment"
+msgid "Paybox identifier"
+msgstr "Paiement Paybox"
+
+msgid "Server Error"
+msgstr ""
+
+msgid "Go to Paybox/Up2Pay secured website"
+msgstr ""
+
+msgid "refused"
+msgstr ""
+
+msgid "answer to"
+msgstr ""
+
+msgid "unkown error"
+msgstr ""
+
+msgid "canceled"
+msgstr ""
+
+msgid "pending"
+msgstr ""
+
 #~ msgid "Paybox plugin"
 #~ msgstr "Plugin Paybox"
 
@@ -101,9 +137,4 @@ msgstr "Pays du titulaire de la carte"
 #, fuzzy
 #~| msgid "Paybox Payment"
 #~ msgid "Paybox site"
-#~ msgstr "Paiement Paybox"
-
-#, fuzzy
-#~| msgid "Paybox Payment"
-#~ msgid "Paybox identifier"
 #~ msgstr "Paiement Paybox"
