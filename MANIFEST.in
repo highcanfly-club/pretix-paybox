@@ -15,3 +15,4 @@ exclude helm/pretix/templates/_helpers.tpl
 exclude helm/pretix/templates/*.yaml
 exclude helm/pretix/values.yaml
 exclude kaniko-build.sh
+exclude .vscode/*
