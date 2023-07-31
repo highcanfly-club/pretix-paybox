@@ -83,3 +83,33 @@ msgstr ""
 
 msgid "Card Holder Country"
 msgstr ""
+
+msgid "The production server base URL"
+msgstr ""
+
+msgid "The sandbox server base URL"
+msgstr ""
+
+msgid "Paybox identifier"
+msgstr ""
+
+msgid "Server Error"
+msgstr ""
+
+msgid "Go to Paybox/Up2Pay secured website"
+msgstr ""
+
+msgid "refused"
+msgstr ""
+
+msgid "answer to"
+msgstr ""
+
+msgid "unkown error"
+msgstr ""
+
+msgid "canceled"
+msgstr ""
+
+msgid "pending"
+msgstr ""

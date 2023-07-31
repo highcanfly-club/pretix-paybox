@@ -1,0 +1,33 @@
+{% load i18n %}
+<pre>{{elements|safe}}</pre>
+<br />
+HMAC:{{hmac}}<br />
+<form action="{{action}}" method="post" id="paybox_sending_form">
+    {{html|safe}}
+    <button type="submit">{% trans "Go to Paybox/Up2Pay secured website" %}</button>
+</form>
+<script type="text/javascript" nonce="{{ nonce }}">
+    /* © Ronan LE MEILlAT 2023 */
+
+    function waitForElm(selector) {
+        return new Promise(resolve => {
+            if (document.querySelector(selector)) {
+                return resolve(document.querySelector(selector));
+            }
+
+            const observer = new MutationObserver(mutations => {
+                if (document.querySelector(selector)) {
+                    resolve(document.querySelector(selector));
+                    observer.disconnect();
+                }
+            });
+
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+    }
+
+    waitForElm('#paybox_sending_form').then((submitElm) => {submitElm.submit()});
+</script>

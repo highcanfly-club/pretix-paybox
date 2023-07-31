@@ -1,3 +1,4 @@
+import base64
 import uuid
 import sys
 from collections import OrderedDict
@@ -9,7 +10,10 @@ from django.forms import Form
 from django.http import HttpRequest
 from django.template.loader import get_template
 from django.utils.crypto import get_random_string
+from django.core.signing import Signer
 from django.utils.translation import get_language, gettext_lazy as _, to_locale
+from pretix.multidomain.urlreverse import build_absolute_uri
+from pretix.base.models import Event
 from django_countries.fields import Country
 from pretix.base.forms.questions import guess_country
 from pretix.base.models import InvoiceAddress, Order, OrderPayment
@@ -18,6 +22,20 @@ from pretix.helpers.countries import CachedCountries
 from pretix.presale.views.cart import cart_session
 
 from .Paybox import Transaction
+
+
+def get_signed_uuid4(request):
+    signer = Signer()
+    uuid4_signed_bytes = signer.sign(request.session["payment_payboxpayment_uuid4"]).encode('ascii')
+    signed_uuid4 = uuid4_signed_bytes.hex().upper()
+    return signed_uuid4
+
+
+def check_signed_uuid4(signed_uuid4):
+    signer = Signer()
+    uuid4_signed_bytes = bytes.fromhex(signed_uuid4)
+    uuid4_signed = uuid4_signed_bytes.decode('ascii')
+    return signer.unsign(uuid4_signed)
 
 
 def getNonce(request):
@@ -31,6 +49,9 @@ class PayboxPayment(BasePaymentProvider):
     verbose_name = _("Paybox Payment")
     abort_pending_allowed = True
     ia = InvoiceAddress()
+
+    def __init__(self, event: Event):
+        super().__init__(event)
 
     @property
     def test_mode_message(self):
@@ -199,14 +220,20 @@ class PayboxPayment(BasePaymentProvider):
 
     def checkout_prepare(self, request, cart):
         print("PayboxPayment.checkout_prepare", file=sys.stderr)
-        request.session["itemcount"] = cart["itemcount"]
-        request.session["total"] = self._decimal_to_int(cart["total"])
+        cs = cart_session(request)
+        request.session["payment_payboxpayment_itemcount"] = cart["itemcount"]
+        request.session["payment_payboxpayment_total"] = self._decimal_to_int(cart["total"])
+        request.session["payment_payboxpayment_uuid4"] = str(uuid.uuid4())
+        request.session["payment_payboxpayment_event_slug"] = self.event.slug
+        request.session["payment_payboxpayment_organizer_slug"] = self.event.organizer.slug
+        request.session["payment_payboxpayment_email"] = cs["email"]
         return super().checkout_prepare(request, cart)
 
     def payment_prepare(
         self, request: HttpRequest, payment: OrderPayment
     ) -> bool | str:
         print("PayboxPayment.payment_prepare", file=sys.stderr)
+        request.session["payment_payboxpayment_payment"] = payment.pk
         return True
 
     def payment_is_valid_session(self, request):
@@ -216,6 +243,17 @@ class PayboxPayment(BasePaymentProvider):
     def execute_payment(self, request: HttpRequest, payment: OrderPayment):
         print("PayboxPayment.execute_payment", file=sys.stderr)
         # payment.confirm()
+        signed_uuid4 = get_signed_uuid4(request)
+        request.session['paybox_payment_info'] = {
+            'order_code': payment.order.code,
+            'order_secret': payment.order.secret,
+            'payment_id': payment.pk,
+            'amount': int(100 * payment.amount),
+            'merchant_id': self.settings.get('merchant_id'),
+        }
+        url = build_absolute_uri(request.event, 'plugins:pretix_paybox:paybox.redirect') + '?suuid4=' + signed_uuid4
+        print("PayboxPayment.execute_payment url:{}".format(url), file=sys.stderr)
+        return url
 
     def get_paybox_locale(self, request):
         languageDjango = get_language()
@@ -226,21 +264,23 @@ class PayboxPayment(BasePaymentProvider):
             subLocale = baseLocale.upper()
         locale = "{}-{}".format(baseLocale, subLocale)
         return locale
-    
+
     def _decimal_to_int(self, amount):
         places = settings.CURRENCY_PLACES.get(self.event.currency, 2)
         return int(amount * 10 ** places)
-    
+
     def checkout_confirm_render(self, request):
         print("PayboxPayment.checkout_confirm_render", file=sys.stderr)
-        # for key, value in request.session.items():
-        #     print('{} => {}'.format(key, value), file=sys.stderr)
-        
+        ctx = {}
+        template = get_template("pretix_paybox/checkout_payment_form.html")
+        return template.render(ctx)
+
+    def get_transaction(self, request):
         holder_country = Country(code=request.session['payment_payboxpayment_country'])
         server_production = False
-        cs = cart_session(request)
         if self.settings.get('paybox_site') == 'live':
             server_production = True
+        # signed_uuid4 = get_signed_uuid4(request)
         transaction = Transaction(PAYBOX_SITE=self.settings.get('paybox_site'),
                                   PAYBOX_RANG=self.settings.get('paybox_rank'),
                                   PAYBOX_IDENTIFIANT=self.settings.get('paybox_id'),
@@ -255,24 +295,19 @@ class PayboxPayment(BasePaymentProvider):
                                   zipcode=request.session['payment_payboxpayment_postal_code'],
                                   city=request.session['payment_payboxpayment_city'],
                                   countrycode=holder_country.numeric,
-                                  totalquantity=int(request.session["itemcount"]),
-                                  PBX_TOTAL=request.session["total"], 	# total of the transaction, in cents (10€ == 1000) (int)
-                                  PBX_PORTEUR=cs["email"],  # customer's email address
+                                  totalquantity=int(request.session["payment_payboxpayment_itemcount"]),
+                                  PBX_TOTAL=request.session["payment_payboxpayment_total"], 	# total of the transaction, in cents (10€ == 1000) (int)
+                                  PBX_PORTEUR=request.session["payment_payboxpayment_email"],  # customer's email address
                                   PBX_TIME=datetime.now().isoformat(),	 # datetime object
-                                  PBX_CMD=str(uuid.uuid4()),  # order_reference (str),
+                                  PBX_CMD=request.session["payment_payboxpayment_uuid4"],  # order_reference (str),
                                   PBX_DEVISE=978,
-                                  PBX_REFUSE='http://127.0.0.1:8000/up2pay',
-                                  PBX_REPONDRE_A='http://127.0.0.1:8000/up2pay',
-                                  PBX_EFFECTUE='http://127.0.0.1:8000/up2pay',
-                                  PBX_ANNULE='http://127.0.0.1:8000/up2pay',
-                                  PBX_ATTENTE='http://127.0.0.1:8000/up2pay',)
-        transaction.post_to_paybox()
-        ctx = {
-            "action": transaction.get_action(),
-            "html": transaction.construct_html_form()["fields"]
-        }
-        template = get_template("pretix_paybox/checkout_payment_form.html")
-        return template.render(ctx)
+                                  PBX_REFUSE=build_absolute_uri(request.event, 'plugins:pretix_paybox:paybox.refuse'),  # + '?suuid4=' + signed_uuid4,
+                                  PBX_REPONDRE_A=build_absolute_uri(request.event, 'plugins:pretix_paybox:paybox.repondre_a'),  # + '?suuid4=' + signed_uuid4,
+                                  PBX_EFFECTUE=build_absolute_uri(request.event, 'plugins:pretix_paybox:paybox.effectue'),  # + '?suuid4=' + signed_uuid4,
+                                  PBX_ANNULE=build_absolute_uri(request.event, 'plugins:pretix_paybox:paybox.annule'),  # + '?suuid4=' + signed_uuid4,
+                                  PBX_ATTENTE=build_absolute_uri(request.event, 'plugins:pretix_paybox:paybox.attente'),)  # + '?suuid4=' + signed_uuid4,)
+
+        return transaction
 
     def order_pending_mail_render(self, order) -> str:
         print("PayboxPayment.order_pending_mail_render", file=sys.stderr)
