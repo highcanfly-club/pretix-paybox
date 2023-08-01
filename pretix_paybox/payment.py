@@ -331,6 +331,10 @@ class PayboxPayment(BasePaymentProvider):
         print("PayboxPayment.payment_control_render", file=sys.stderr)
         template = get_template("pretix_paybox/control.html")
         ctx = {
+            "request": request,
+            "event": self.event,
+            "payment_info": payment.info_data,
+            "order": payment.order,
         }
         return template.render(ctx)
 
