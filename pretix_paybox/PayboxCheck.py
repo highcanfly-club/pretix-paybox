@@ -1,4 +1,5 @@
 import base64
+import json
 from Crypto.Hash import SHA
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
@@ -47,3 +48,24 @@ Ka1g88CjFwRw/PB9kwIDAQAB
         h, binary_signature), "Signature Verification Failed"
 
     return True
+
+
+def get_object_response(response_message):
+    url_parsed = urlparse(response_message)  # object
+    message = url_parsed.query  # string
+    query = parse_qs(message)  # dictionnary
+    object_response = {
+        "amount": query["amount"][0],
+        "paymentId": query["paymentId"][0],
+        "transactionId": query["transactionId"][0],
+        "authorizationId": query["authorizationId"][0],
+        "cardType": query["cardType"][0],
+        "cardNumber": query["cardNumber"][0],
+        "cardExpiration": query["cardExpiration"][0],
+        "error": query["error"][0],
+        "payboxRef": query["payboxRef"][0],
+        "date": query["date"][0],
+        "time": query["time"][0],
+        "signature": query["signature"][0],
+    }
+    return object_response

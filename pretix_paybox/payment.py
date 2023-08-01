@@ -333,6 +333,7 @@ class PayboxPayment(BasePaymentProvider):
         ctx = {
             "request": request,
             "event": self.event,
+            "payment": payment,
             "payment_info": payment.info_data,
             "order": payment.order,
         }

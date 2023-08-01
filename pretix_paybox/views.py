@@ -8,7 +8,7 @@ from pretix.base.models import Event, OrderPayment, Organizer
 from pretix.multidomain.urlreverse import eventreverse
 from urllib.parse import parse_qs, urlparse
 
-from .PayboxCheck import verify_response
+from .PayboxCheck import get_object_response, verify_response
 from .payment import PayboxPayment, check_signed_uuid4, getNonce
 
 
@@ -43,6 +43,7 @@ def effectue(request, *args, **kwargs):
             check = verify_response(request.build_absolute_uri())
             if check:
                 if get_response_code(request) == "00000":
+                    payment.info_data = get_object_response(request.build_absolute_uri())
                     payment.confirm()
                     return redirect(eventreverse(request.event, 'presale:event.order', kwargs={
                         'order': payment.order.code,

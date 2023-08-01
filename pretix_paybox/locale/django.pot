@@ -128,3 +128,24 @@ msgstr ""
 
 msgid "Payment is pending"
 msgstr ""
+
+msgid "Transaction"
+msgstr ""
+
+msgid "Authorization"
+msgstr ""
+
+msgid "Card type"
+msgstr ""
+
+msgid "Card number"
+msgstr ""
+
+msgid "Card expiration"
+msgstr ""
+
+msgid "Payment date"
+msgstr ""
+
+msgid "Reference"
+msgstr ""
