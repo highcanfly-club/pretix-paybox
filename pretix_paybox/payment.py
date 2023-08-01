@@ -106,6 +106,7 @@ class PayboxPayment(BasePaymentProvider):
                     max_length=128,
                     min_length=128,
                     help_text=_("The sandbox HMAC key"),
+                    initial="0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF"
                 ),
             ),
             (
@@ -117,6 +118,7 @@ class PayboxPayment(BasePaymentProvider):
                     help_text=_(
                         "This is the Paybox site ID"
                     ),
+                    initial="1999888"
                 ),
             ),
             (
@@ -128,6 +130,7 @@ class PayboxPayment(BasePaymentProvider):
                     help_text=_(
                         "This is the two characters rank ID"
                     ),
+                    initial="32"
                 ),
             ),
             (
@@ -139,6 +142,7 @@ class PayboxPayment(BasePaymentProvider):
                     help_text=_(
                         "This is the main Paybox ID"
                     ),
+                    initial="2"
                 ),
             ),
         ]
