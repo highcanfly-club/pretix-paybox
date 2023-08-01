@@ -117,11 +117,11 @@ msgstr ""
 msgid "You will redirected to the Paybox/Up2Pay secured website after clicking on 'Place binding order'"
 msgstr ""
 
-msgid "This order has been paid via Payox/Up2Pay Payment."
+msgid "This order has been paid via Paybox/Up2Pay Payment."
 msgstr ""
 
-msgid "This order has been marked as paid via Payox/Up2Pay Payment manually."
+msgid "This order has been marked as paid via Paybox/Up2Pay Payment manually."
 msgstr ""
 
-msgid "This order has been planned to be paid via Payox/Up2Pay Payment, but no payment has been received yet."
+msgid "This order has been planned to be paid via Paybox/Up2Pay Payment, but no payment has been received yet."
 msgstr ""
