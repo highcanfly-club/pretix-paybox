@@ -1,5 +1,16 @@
 msgid ""
-msgstr "Report-Msgid-Bugs-To: \nPOT-Creation-Date: 2017-03-07 19:01+0100\nPO-Revision-Date: 2023-08-01 14:22+0000\nLast-Translator: admin <ronan@highcanfly.club>\nLanguage-Team: Spanish <http://oci.sctg.eu.org/projects/pretix-paybox/plugin/es/>\nLanguage: es\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 4.18.2\n"
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-07 19:01+0100\n"
+"PO-Revision-Date: 2023-08-01 14:22+0000\n"
+"Last-Translator: admin <ronan@highcanfly.club>\n"
+"Language-Team: Spanish <http://oci.sctg.eu.org/projects/pretix-paybox/plugin/es/>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 msgid "Paybox for Pretix"
 msgstr "Paybox para Pretix"
@@ -114,3 +125,6 @@ msgstr "Este pedido se ha marcado como pagado a través de Paybox / Up2Pay Payme
 
 msgid "This order has been planned to be paid via Paybox/Up2Pay Payment, but no payment has been received yet."
 msgstr "Este pedido ha sido planeado para ser pagado a través de Paybox / Up2Pay Payment, pero aún no se ha recibido ningún pago."
+
+msgid "Payment is pending"
+msgstr ""
