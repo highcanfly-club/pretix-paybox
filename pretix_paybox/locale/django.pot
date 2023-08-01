@@ -125,3 +125,6 @@ msgstr ""
 
 msgid "This order has been planned to be paid via Paybox/Up2Pay Payment, but no payment has been received yet."
 msgstr ""
+
+msgid "Payment is pending"
+msgstr ""
