@@ -114,5 +114,5 @@ msgstr ""
 msgid "pending"
 msgstr ""
 
-msgid "You will redirected to the Paybox/Up2Pay secured website after clicking on continue"
+msgid "You will redirected to the Paybox/Up2Pay secured website after clicking on 'Place binding order'"
 msgstr ""
