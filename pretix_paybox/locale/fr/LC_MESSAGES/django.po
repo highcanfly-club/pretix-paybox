@@ -1,16 +1,5 @@
 msgid ""
-msgstr ""
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-07 19:01+0100\n"
-"PO-Revision-Date: 2023-08-01 15:59+0000\n"
-"Last-Translator: admin <ronan@highcanfly.club>\n"
-"Language-Team: French <http://oci.sctg.eu.org/projects/pretix-paybox/plugin/fr/>\n"
-"Language: fr\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+msgstr "Report-Msgid-Bugs-To: \nPOT-Creation-Date: 2017-03-07 19:01+0100\nPO-Revision-Date: 2023-08-01 16:01+0000\nLast-Translator: admin <ronan@highcanfly.club>\nLanguage-Team: French <http://oci.sctg.eu.org/projects/pretix-paybox/plugin/fr/>\nLanguage: fr\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n > 1;\nX-Generator: Weblate 4.18.2\n"
 
 msgid "Paybox for Pretix"
 msgstr "Paybox pour Pretix"
@@ -130,27 +119,25 @@ msgid "Payment is pending"
 msgstr "Le paiement est en attente"
 
 msgid "Transaction"
-msgstr ""
+msgstr "Transaction"
 
 msgid "Authorization"
-msgstr ""
+msgstr "Autorisation"
 
 msgid "Card type"
-msgstr ""
+msgstr "Type de carte"
 
 msgid "Card number"
-msgstr ""
+msgstr "Numéro de carte"
 
 msgid "Card expiration"
-msgstr ""
+msgstr "Expiration de la carte"
 
-#, fuzzy
-#| msgid "Payment is pending"
 msgid "Payment date"
-msgstr "Le paiement est en attente"
+msgstr "Date de paiement"
 
 msgid "Reference"
-msgstr ""
+msgstr "Référence"
 
 #~ msgid "Paybox plugin"
 #~ msgstr "Plugin Paybox"
