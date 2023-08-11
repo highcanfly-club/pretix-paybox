@@ -7,9 +7,7 @@ This is a plugin for [pretix](https://github.com/pretix/pretix).
 # Description
 
 This is an alpha stage payment plugin for Pretix 4, it allows to use
-Sumup online payment. You need to register an OAuth app in your Sumup
-developer account. You also to manually request the \"payment\" scope to
-Sumup.
+Paybox/Up2Pay (Crédit Agricole...) online payment.
 
 # Development setup
 
